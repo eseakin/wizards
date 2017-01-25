@@ -17,7 +17,7 @@ var rand = function(min, max, floor) {
         return Math.random() * (max - min + 1) + min;
 };
 
-var animate = function() {
+var animate = function(ctx) {
 
 };
 
@@ -27,8 +27,7 @@ $(document).ready(function() {
     console.log('init')
     var ctx;
     var chars = loadCharacters();
-    chars = loadGraphics(chars);
-    chars = loadSound(chars);
+    console.log(chars)
     // gameTitle();
 
     setTimeout(function() {
@@ -52,7 +51,7 @@ var gameTitle = function() {
 
 var loadCanvas = function() {
     console.log('loadCanvas');
-    $('body').append('<canvas class="canvas" id="gameCanvas"></canvas>');
+    $('body').append('<canvas class="canvas" id="gameCanvas">Canvas is not working.</canvas>');
     var canvas = document.getElementById("gameCanvas");
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = 'red';
@@ -78,62 +77,54 @@ var loadCharacters = function() {
 };
 
 var loadSound = function(characters) {
-    console.log('loadSound');
-    characters.sounds = {
-        golem: {},
-        wizard: {}
-    };
+    console.log('loadSound')
 
-    characters.sounds.golem.attack = new Audio();
-    characters.sounds.golem.attack.src = "images/mathgame/golemattack.ogg";
+    characters.golem.sfx.attack = new Audio();
+    characters.golem.sfx.attack.src = "images/mathgame/golemattack.ogg";
+   
+    characters.golem.sfx.move = new Audio();
+    characters.golem.sfx.move.src = "images/mathgame/rockgolem.mp3";
 
-    characters.sounds.wizard.attack = new Audio();
-    characters.sounds.wizard.attack.src = "images/mathgame/paralysis.mp3";
-
-    characters.sounds.golem.move = new Audio();
-    characters.sounds.golem.move.src = "images/mathgame/rockgolem.mp3";
+    characters.wizard.sfx.attack = new Audio();
+    characters.wizard.sfx.attack.src = "images/mathgame/paralysis.mp3";
 
     return characters;
 };
 
 var loadGraphics = function(characters) {
     console.log('loadGraphics');
-    characters.graphics = {
-        golem: {},
-        wizard: {}
-    };
 
-    characters.graphics.wizard.rest = new Image();
-    characters.graphics.wizard.rest.src = "images/mathgame/wiz-rest-sm.png";
-    // characters.graphics.wizard.rest.addEventListener("load", draw);
+    characters.wizard.gfx.rest = new Image();
+    characters.wizard.gfx.rest.src = "images/mathgame/wiz-rest-sm.png";
+    // characters.wizard.gfx.rest.addEventListener("load", draw);
 
-    characters.graphics.wizard.attack = new Image();
-    characters.graphics.wizard.attack.src = "images/mathgame/wiz-attack-sm.png";
-    // characters.graphics.wizard.attack.addEventListener("load", draw);
+    characters.wizard.gfx.attack = new Image();
+    characters.wizard.gfx.attack.src = "images/mathgame/wiz-attack-sm.png";
+    // characters.wizard.gfx.attack.addEventListener("load", draw);
 
-    characters.graphics.wizard.hurt = new Image();
-    characters.graphics.wizard.hurt.src = "images/mathgame/wiz-hurt-sm.png";
-    // characters.graphics.wizard.hurt.addEventListener("load", draw);
+    characters.wizard.gfx.hurt = new Image();
+    characters.wizard.gfx.hurt.src = "images/mathgame/wiz-hurt-sm.png";
+    // characters.wizard.gfx.hurt.addEventListener("load", draw);
 
-    characters.graphics.wizard.spell1 = new Image();
-    characters.graphics.wizard.spell1.src = "images/mathgame/spell1-md.png";
-    // characters.graphics.wizard.spell1.addEventListener("load", draw);
+    characters.wizard.gfx.spell1 = new Image();
+    characters.wizard.gfx.spell1.src = "images/mathgame/spell1-md.png";
+    // characters.wizard.gfx.spell1.addEventListener("load", draw);
 
-    characters.graphics.golem.walk = new Image();
-    characters.graphics.golem.walk.src = "images/mathgame/brown-golem-walk-sm.png";
-    // characters.graphics.golem.walk.addEventListener("load", draw);
+    characters.golem.gfx.walk = new Image();
+    characters.golem.gfx.walk.src = "images/mathgame/brown-golem-walk-sm.png";
+    // characters.golem.gfx.walk.addEventListener("load", draw);
 
-    characters.graphics.golem.shadow = new Image();
-    characters.graphics.golem.shadow.src = "images/mathgame/golemdropshadow.png";
-    // characters.graphics.golem.shadow.addEventListener("load", draw);
+    characters.golem.gfx.shadow = new Image();
+    characters.golem.gfx.shadow.src = "images/mathgame/golemdropshadow.png";
+    // characters.golem.gfx.shadow.addEventListener("load", draw);
 
-    characters.graphics.golem.rest = new Image();
-    characters.graphics.golem.rest.src = "images/mathgame/brown-golem-rest-sm.png";
-    // characters.graphics.golem.rest.addEventListener("load", draw);
+    characters.golem.gfx.rest = new Image();
+    characters.golem.gfx.rest.src = "images/mathgame/brown-golem-rest-sm.png";
+    // characters.golem.gfx.rest.addEventListener("load", draw);
 
-    characters.graphics.golem.attack = new Image();
-    characters.graphics.golem.attack.src = "images/mathgame/brown-golem-attack-sm.png";
-    // characters.graphics.golem.attack.addEventListener("load", draw);
+    characters.golem.gfx.attack = new Image();
+    characters.golem.gfx.attack.src = "images/mathgame/brown-golem-attack-sm.png";
+    // characters.golem.gfx.attack.addEventListener("load", draw);
 
     return characters;
 };
@@ -173,18 +164,11 @@ Wizard.prototype.attack = function() {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+var Golem = function() {
+    this.hp = 10;
+    this.speed = 1;
+    this.damage = 1;
+}
 
 
 
